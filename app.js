@@ -44,14 +44,15 @@ class MessageService {
       id: uuidv4(),
       user: data.user,
       text: data.text,
+      color: data.color,
     };
 
     // Add new message to the list
-    if (this.messages.length >= 10) {
+    /* if (this.messages.length >= 10) {
       this.messages.pop(0);
     } else {
       this.messages.push(message);
-    }
+    } */
 
     return message;
   }
@@ -99,6 +100,7 @@ function onMessageHandler(target, context, msg, self) {
   //console.log({ target, context, msg, self });
   app.service('messages').create({
     user: context.username,
+    color: context.color,
     text: msg,
   });
 }

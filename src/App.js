@@ -7,29 +7,22 @@ import './App.css';
 function App() {
   const [chats, setChats] = useState([]);
 
-  console.log(chats);
   useEffect(() => {
     const messages = Feathers.service('messages');
-
     // Add new messages to the message list
     messages.on('created', (message) => {
-      console.log(chats);
-      //setChats((chats) => chats.concat(message));
       setChats((chats) => [...chats, message]);
     });
-    //loadMsg();
-  }, [chats]);
+  }, []);
+
+  if (chats.length >= 8) {
+    chats.shift();
+    console.log(chats);
+  }
 
   return (
     <div className='App'>
-      <header className='App-header'>
-        <img
-          src='https://cdn.discordapp.com/attachments/414823428449894410/735484509948084334/duh.png'
-          className='App-logo'
-          alt='logo'
-        />
-        <ChatPanel msg={chats}></ChatPanel>
-      </header>
+      <ChatPanel msg={chats}></ChatPanel>
     </div>
   );
 }
