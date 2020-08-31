@@ -17,7 +17,6 @@ function App() {
 
   if (chats.length >= 8) {
     chats.shift();
-    console.log(chats);
   }
 
   return (

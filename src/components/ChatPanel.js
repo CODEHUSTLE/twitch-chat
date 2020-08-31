@@ -11,7 +11,17 @@ const ChatPanel = (props) => {
   const chats = (
     <ul>
       {props.msg.map((chat) => (
-        <li className='chat-msg' key={chat.id}>
+        <li
+          className='chat-msg'
+          key={chat.id}
+          style={{
+            //borderColor: checkColor(chat.color),
+            borderImage: `linear-gradient(
+                to bottom,
+                ${checkColor(chat.color)},
+                rgba(0,0,0,0.8)) 1 10%`,
+          }}
+        >
           <h5 style={{ color: checkColor(chat.color), margin: 5 }}>
             {chat.user}: <span>{chat.text}</span>
           </h5>

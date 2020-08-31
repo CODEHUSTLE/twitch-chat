@@ -38,7 +38,6 @@ class MessageService {
 
   async create(data) {
     // The new message is the data merged with a unique identifier
-    // using the messages length since it changes whenever we add one
     console.log(data);
     const message = {
       id: uuidv4(),
@@ -48,7 +47,7 @@ class MessageService {
     };
 
     // Add new message to the list
-    /* if (this.messages.length >= 10) {
+    /* if (this.messages.length >= 8) {
       this.messages.pop(0);
     } else {
       this.messages.push(message);
@@ -97,9 +96,9 @@ function onConnectedHandler(addr, port) {
 // For good measure let's create a message
 // So our API doesn't look so empty
 function onMessageHandler(target, context, msg, self) {
-  //console.log({ target, context, msg, self });
+  console.log({ target, context, msg, self });
   app.service('messages').create({
-    user: context.username,
+    user: context['display-name'],
     color: context.color,
     text: msg,
   });

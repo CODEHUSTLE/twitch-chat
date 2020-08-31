@@ -1,5 +1,7 @@
 ul {
   list-style: none;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 li.chat-msg {
@@ -11,6 +13,20 @@ li.chat-msg {
   color: #fff;
   margin: 8px 0px;
   font-weight: bold;
+  animation: 0.5s ease-out 0s 1 slideInFromRight;
+  -webkit-animation: 0.5s ease-out 0s 1 slideInFromRight;
+  word-wrap: break-word;
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 h5 > span {
