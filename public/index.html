@@ -76,19 +76,33 @@
         };
 
         const handleMessage = (data) => {
-          const { displayName, color } = data.tags;
-          console.log(data.message);
-          if (data.message != undefined && displayName != undefined) {
+          const { displayName, color, emotes } = data.tags;
+          let msg = data.message;
+          if (msg != undefined && displayName != undefined) {
             const list = document.getElementById('chat-list');
             let liCount = document.getElementsByTagName('li');
             if (liCount.length > 9) {
               liCount[liCount.length - 1].remove();
             }
+            let emoteList = [];
+            if (emotes != undefined) {
+              emotes.map((emote) => {
+                const emoteStr = msg.substring(emote.start, emote.end + 1);
+                emoteList.push(emoteStr);
+              });
+
+              emotes.map((emote, i) => {
+                msg = msg.replace(
+                  emoteList[i],
+                  `<img src="https://static-cdn.jtvnw.net/emoticons/v1/${emote.id}/1.0">`
+                );
+              });
+            }
             let item = `<li class="chat-msg" style="border-image: linear-gradient(
                 to bottom right,
-                ${checkColor(color)}) 1"><h5 style="color: ${checkColor(
-              color
-            )}">${displayName}: <span>${data.message}</span></h5> </li>`;
+                ${checkColor(
+                  color
+                )}) 1"><h5 style="color: ${color}">${displayName}: <span>${msg}</span></h5> </li>`;
             list.insertAdjacentHTML('afterbegin', item);
             window.scrollTo(0, 9999);
           }
